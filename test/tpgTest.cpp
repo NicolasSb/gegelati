@@ -57,7 +57,7 @@ class TPGTest : public ::testing::Test
     std::vector<std::reference_wrapper<const Data::DataHandler>> vect;
     Instructions::Set set;
     Environment* e = NULL;
-    std::shared_ptr<Program::Program> progPointer;
+    std::shared_ptr<Program::ObservationProgram> progPointer;
 
     virtual void SetUp()
     {
@@ -72,7 +72,7 @@ class TPGTest : public ::testing::Test
 
         e = new Environment(set, vect, 8, 5);
         progPointer =
-            std::shared_ptr<Program::Program>(new Program::Program(*e));
+            std::shared_ptr<Program::ObservationProgram>(new Program::ObservationProgram(*e));
     }
 
     virtual void TearDown()
@@ -177,13 +177,13 @@ TEST_F(TPGTest, TPGEdgeGetSetProgram)
     TPG::TPGAction action(0);
 
     const TPG::TPGEdge constEdge(&team, &action, progPointer);
-    const Program::Program& constProg = constEdge.getProgram();
+    const Program::ObservationProgram& constProg = constEdge.getProgram();
     ASSERT_EQ(&constProg, progPointer.get())
         << "Program accessor on const TPGEdge returns a Program different from "
            "the one given at construction.";
 
     // program is a mutable attribute of the Edge.
-    std::shared_ptr<Program::Program> progPointer2(new Program::Program(*e));
+    std::shared_ptr<Program::ObservationProgram> progPointer2(new Program::ObservationProgram(*e));
     constEdge.setProgram(progPointer2);
     ASSERT_EQ(&constEdge.getProgram(), progPointer2.get())
         << "Program accessor on TPGEdge returns a Program different from the "

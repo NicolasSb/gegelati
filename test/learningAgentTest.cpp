@@ -220,7 +220,7 @@ TEST_F(LearningAgentTest, EvalRoot)
     Archive a; // For testing purposes, notmally, the archive from the
                // LearningAgent is used.
 
-    TPG::TPGExecutionEngine tee(la.getTPGGraph().getEnvironment(), &a);
+    TPG::ObservationTEE tee(la.getTPGGraph().getEnvironment(), &a);
 
     la.init();
     std::shared_ptr<Learn::EvaluationResult> result;
@@ -619,7 +619,7 @@ TEST_F(ParallelLearningAgentTest, EvalRootSequential)
     Archive archive;
 
     // The TPGExecutionEngine
-    TPG::TPGExecutionEngine tee(env, &archive);
+    TPG::ObservationTEE tee(env, &archive);
 
     std::shared_ptr<Learn::EvaluationResult> result;
     Learn::ParallelLearningAgent pla(le, set, params);

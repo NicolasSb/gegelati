@@ -61,7 +61,7 @@ class ExporterTest : public ::testing::Test
     std::vector<std::reference_wrapper<const Data::DataHandler>> vect;
     Instructions::Set set;
     Environment* e = NULL;
-    std::vector<std::shared_ptr<Program::Program>> progPointers;
+    std::vector<std::shared_ptr<Program::ObservationProgram>> progPointers;
 
     TPG::TPGGraph* tpg;
     std::vector<const TPG::TPGEdge*> edges;
@@ -89,8 +89,8 @@ class ExporterTest : public ::testing::Test
 
         // Create 10 programs
         for (int i = 0; i < 8; i++) {
-            std::shared_ptr<Program::Program> p =
-                std::make_shared<Program::Program>(*e);
+            std::shared_ptr<Program::ObservationProgram> p =
+                std::make_shared<Program::ObservationProgram>(*e);
             for (int j = 0; j < constant_size; j++) {
                 p.get()->getConstantHandler().setDataAt(typeid(Data::Constant),
                                                         j, {j - 2});

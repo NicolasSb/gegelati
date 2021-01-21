@@ -168,7 +168,7 @@ TEST_F(adversarialLearningAgentTest, EvalJob)
     Archive a; // For testing purposes, notmally, the archive from the
     // LearningAgent is used.
 
-    TPG::TPGExecutionEngine tee(la.getTPGGraph().getEnvironment(), &a);
+    TPG::ObservationTEE tee(la.getTPGGraph().getEnvironment(), &a);
 
     la.init();
     std::shared_ptr<Learn::EvaluationResult> result;

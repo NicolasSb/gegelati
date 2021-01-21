@@ -67,8 +67,8 @@ class MutatorTest : public ::testing::Test
     std::vector<std::reference_wrapper<const Data::DataHandler>> vect;
     Instructions::Set set;
     Environment* e;
-    Program::Program* p;
-    std::shared_ptr<Program::Program> progPointer;
+    Program::ObservationProgram* p;
+    std::shared_ptr<Program::ObservationProgram> progPointer;
 
     MutatorTest() : e{nullptr}, p{nullptr} {};
 
@@ -95,9 +95,9 @@ class MutatorTest : public ::testing::Test
         // the environment and the programs have 5 Constant parameters
         int nb_const = 5;
         e = new Environment(set, vect, 8, nb_const);
-        p = new Program::Program(*e);
+        p = new Program::ObservationProgram(*e);
         progPointer =
-            std::shared_ptr<Program::Program>(new Program::Program(*e));
+            std::shared_ptr<Program::ObservationProgram>(new Program::ObservationProgram(*e));
     }
 
     virtual void TearDown()
@@ -291,7 +291,7 @@ TEST_F(MutatorTest, LineMutatorAlterLineWithCompositeOperands)
             })));
 
     Environment e2(set, vect, 8, 5);
-    Program::Program p2(e2);
+    Program::ObservationProgram p2(e2);
 
     Program::ProgramExecutionEngine pEE(p2);
 
@@ -490,7 +490,7 @@ TEST_F(MutatorTest, ProgramMutatorMutateBehavior)
         })));
 
     Environment e2(set, vect, 8, 5);
-    Program::Program p2(e2);
+    Program::ObservationProgram p2(e2);
 
     Program::ProgramExecutionEngine pEE(p2);
 
@@ -590,7 +590,7 @@ TEST_F(MutatorTest, TPGMutatorInitRandomTPG)
         << "Too many edges in the initialized TPG.";
 
     // Check number of Programs.
-    std::set<Program::Program*> programs;
+    std::set<Program::ObservationProgram*> programs;
     std::for_each(tpg.getEdges().begin(), tpg.getEdges().end(),
                   [&programs](const TPG::TPGEdge& edge) {
                       programs.insert(&edge.getProgram());
@@ -599,7 +599,7 @@ TEST_F(MutatorTest, TPGMutatorInitRandomTPG)
         << "Number of distinct program in the TPG is incorrect.";
     // Check that no team has the same program twice
     for (auto team : tpg.getRootVertices()) {
-        std::set<Program::Program*> teamPrograms;
+        std::set<Program::ObservationProgram*> teamPrograms;
         std::for_each(team->getOutgoingEdges().begin(),
                       team->getOutgoingEdges().end(),
                       [&teamPrograms](const TPG::TPGEdge* edge) {
@@ -786,7 +786,7 @@ TEST_F(MutatorTest, TPGMutatorMutateOutgoingEdge)
     params.prog.pSwap = 1.0;
     params.tpg.pEdgeDestinationChange = 1.0;
 
-    std::list<std::shared_ptr<Program::Program>> newPrograms;
+    std::list<std::shared_ptr<Program::ObservationProgram>> newPrograms;
 
     ASSERT_NO_THROW(Mutator::TPGMutator::mutateOutgoingEdge(
         tpg, arch, vertex0, &edge0, {&vertex0}, {&vertex1}, newPrograms, params,
@@ -837,7 +837,7 @@ TEST_F(MutatorTest, TPGMutatorMutateTeam)
     Mutator::ProgramMutator::initRandomProgram(*progPointer, params, rng);
     tee.executeFromRoot(vertex0);
 
-    std::list<std::shared_ptr<Program::Program>> newPrograms;
+    std::list<std::shared_ptr<Program::ObservationProgram>> newPrograms;
 
     // Test the function in normal conditions
     // (only edge2 can be part of "preExistingEdges" since all other edges are
@@ -882,7 +882,7 @@ TEST_F(MutatorTest, TPGMutatorMutateProgramBehaviorAgainstArchive)
     params.prog.pSwap = 1.0;
     params.tpg.pEdgeDestinationChange = 1.0;
 
-    std::list<std::shared_ptr<Program::Program>> newPrograms;
+    std::list<std::shared_ptr<Program::ObservationProgram>> newPrograms;
 
     Mutator::TPGMutator::mutateOutgoingEdge(tpg, arch, vertex0, &edge0,
                                             {&vertex0}, {&vertex1}, newPrograms,
@@ -939,9 +939,9 @@ TEST_F(MutatorTest, TPGMutatorMutateNewProgramBehaviorsSequential)
     }
 
     // Create a list of Programs to mutate
-    std::list<std::shared_ptr<Program::Program>> programs;
+    std::list<std::shared_ptr<Program::ObservationProgram>> programs;
     for (auto edge : tpg.getEdges()) {
-        programs.emplace_back(new Program::Program(edge.getProgram()));
+        programs.emplace_back(new Program::ObservationProgram(edge.getProgram()));
     }
 
     // Mutate them sequentially
@@ -986,9 +986,9 @@ TEST_F(MutatorTest, TPGMutatorMutateNewProgramBehaviorsParallel)
     }
 
     // Create a list of Programs to mutate
-    std::list<std::shared_ptr<Program::Program>> programs;
+    std::list<std::shared_ptr<Program::ObservationProgram>> programs;
     for (auto edge : tpg.getEdges()) {
-        programs.emplace_back(new Program::Program(edge.getProgram()));
+        programs.emplace_back(new Program::ObservationProgram(edge.getProgram()));
     }
 
     // Mutate them sequentially
@@ -1032,12 +1032,12 @@ TEST_F(MutatorTest, TPGMutatorMutateNewProgramBehaviorsDeterminism)
     }
 
     // Create a list of Programs to mutate
-    std::list<std::shared_ptr<Program::Program>> programsSequential;
-    std::list<std::shared_ptr<Program::Program>> programsParallel;
+    std::list<std::shared_ptr<Program::ObservationProgram>> programsSequential;
+    std::list<std::shared_ptr<Program::ObservationProgram>> programsParallel;
     for (auto edge : tpg.getEdges()) {
         programsSequential.emplace_back(
-            new Program::Program(edge.getProgram()));
-        programsParallel.emplace_back(new Program::Program(edge.getProgram()));
+            new Program::ObservationProgram(edge.getProgram()));
+        programsParallel.emplace_back(new Program::ObservationProgram(edge.getProgram()));
     }
     rng.setSeed(0);
     Mutator::TPGMutator::mutateNewProgramBehaviors(1, programsSequential, rng,

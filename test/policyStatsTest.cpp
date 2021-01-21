@@ -49,7 +49,7 @@ class PolicyStatsTest : public ::testing::Test
     std::vector<std::reference_wrapper<const Data::DataHandler>> vect;
     Instructions::Set set;
     Environment* e = NULL;
-    std::vector<std::shared_ptr<Program::Program>> progPointers;
+    std::vector<std::shared_ptr<Program::ObservationProgram>> progPointers;
 
     TPG::TPGGraph* tpg;
     std::vector<const TPG::TPGEdge*> edges;
@@ -81,7 +81,7 @@ class PolicyStatsTest : public ::testing::Test
         // Create 9 programs
         for (int i = 0; i < 9; i++) {
             progPointers.push_back(
-                std::shared_ptr<Program::Program>(new Program::Program(*e)));
+                std::shared_ptr<Program::ObservationProgram>(new Program::ObservationProgram(*e)));
         }
 
         // Create a TPG

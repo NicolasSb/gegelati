@@ -126,7 +126,7 @@ TEST_F(ClassificationLearningAgentTest, EvaluateRoot)
     Archive a; // For testing purposes, normally, the archive from the
                // LearningAgent is used.
 
-    TPG::TPGExecutionEngine tee(cla.getTPGGraph().getEnvironment(), &a);
+    TPG::ObservationTEE tee(cla.getTPGGraph().getEnvironment(), &a);
 
     cla.init();
     std::shared_ptr<Learn::EvaluationResult> result1;

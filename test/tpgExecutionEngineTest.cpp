@@ -61,7 +61,7 @@ class TPGExecutionEngineTest : public ::testing::Test
     std::vector<std::reference_wrapper<const Data::DataHandler>> vect;
     Instructions::Set set;
     Environment* e = NULL;
-    std::vector<std::shared_ptr<Program::Program>> progPointers;
+    std::vector<std::shared_ptr<Program::ObservationProgram>> progPointers;
 
     TPG::TPGGraph* tpg;
     std::vector<const TPG::TPGEdge*> edges;
@@ -72,7 +72,7 @@ class TPGExecutionEngineTest : public ::testing::Test
      *
      * \param[in] value a double value between 0 and 10.
      */
-    void makeProgramReturn(Program::Program& prog, double value)
+    void makeProgramReturn(Program::ObservationProgram& prog, double value)
     {
         auto& line = prog.addNewLine();
         // do an multby constant with DHandler 0
@@ -105,7 +105,7 @@ class TPGExecutionEngineTest : public ::testing::Test
         // Create 10 programs
         for (int i = 0; i < 10; i++) {
             progPointers.push_back(
-                std::shared_ptr<Program::Program>(new Program::Program(*e)));
+                std::shared_ptr<Program::ObservationProgram>(new Program::ObservationProgram(*e)));
         }
 
         // Create a TPG
@@ -245,7 +245,7 @@ TEST_F(TPGExecutionEngineTest, EvaluateFromRoot)
     std::vector<const TPG::TPGVertex*> result;
 
     ASSERT_NO_THROW(result =
-                        tpee.executeFromRoot(*tpg->getRootVertices().at(0)))
+                        tpee.executeFromRoot(*tpg->getRootVertices().at(0)).first)
         << "Execution of a TPGGraph from a valid root failed.";
     // Check the traversed path
     ASSERT_EQ(result.size(), 4)

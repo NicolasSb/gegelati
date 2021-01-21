@@ -64,7 +64,7 @@ class ImporterTest : public ::testing::Test
     std::vector<std::reference_wrapper<const Data::DataHandler>> vect;
     Instructions::Set set;
     Environment* e = NULL;
-    std::vector<std::shared_ptr<Program::Program>> progPointers;
+    std::vector<std::shared_ptr<Program::ObservationProgram>> progPointers;
     File::TPGGraphDotExporter* dotExporter = NULL;
 
     TPG::TPGGraph* tpg;
@@ -95,8 +95,8 @@ class ImporterTest : public ::testing::Test
 
         // Create 10 programs
         for (int i = 0; i < 9; i++) {
-            std::shared_ptr<Program::Program> p =
-                std::make_shared<Program::Program>(*e);
+            std::shared_ptr<Program::ObservationProgram> p =
+                std::make_shared<Program::ObservationProgram>(*e);
             for (int j = 0; j < 5; j++) {
                 p.get()->getConstantHandler().setDataAt(typeid(Data::Constant),
                                                         j, {j - 2});
@@ -275,7 +275,7 @@ TEST_F(ImporterTest, importGraph)
 
     // check that the imported program is the same as the one written in the
     // file.
-    Program::Program& p = tpg_copy->getEdges().front().getProgram();
+    Program::ObservationProgram& p = tpg_copy->getEdges().front().getProgram();
     ASSERT_EQ(p.getNbLines(), 3)
         << "The number of lines of the copied program dismatch";
     // checking the first line
