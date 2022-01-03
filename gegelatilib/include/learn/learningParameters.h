@@ -197,6 +197,22 @@ namespace Learn {
         /// Boolean set to true if the user wants a validation after each
         /// training, and false otherwise
         bool doValidation = false;
+        /// JSon comment
+        inline static const std::string nbTestingBatchesComment =
+            "// Number of batches to use for the evaluation in an "
+            "imbalanced learning environment\n"
+            "// \"nbTestingBatches\" : 30, // Default value";
+        ///Number of batches to use for the evaluation in an imbalanced 
+        ///learning environment
+        size_t nbTestingBatches = 30;
+        ///JSon comment
+        inline static const std::string confidenceIntervalComment =
+            "// Confidence interval at XX% used vor the validation in an "
+            "imbalanced learning environment\n"
+            "// \"confidenceInterval\" : 95, // Default value";
+        /// Confidence interval at XX% used vor the validation in an imbalanced
+        ///learning environment
+        size_t confidenceInterval = 95;
     } LearningParameters;
 }; // namespace Learn
 

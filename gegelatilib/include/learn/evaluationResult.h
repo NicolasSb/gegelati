@@ -57,6 +57,9 @@ namespace Learn {
         /// Number of evaluation leading to this result.
         size_t nbEvaluation;
 
+        /// Friend the comparison operator
+        friend bool operator < (const EvaluationResult &, const EvaluationResult &);
+
       public:
         /**
          * \brief Deleted default constructor.

@@ -222,6 +222,14 @@ void File::ParametersParser::setParameterFromString(
         params.doValidation = value.asBool();
         return;
     }
+    if (param == "nbTestingBatches") {
+        params.nbTestingBatches = value.asUInt();
+        return;
+    }
+    if (param == "confidenceInterval") {
+        params.confidenceInterval = value.asUInt();
+        return;
+    }
     // we didn't recognize the symbol
     std::cerr << "Ignoring unknown parameter " << param << std::endl;
 }
@@ -390,6 +398,16 @@ void File::ParametersParser::writeParametersToJson(
     root["mutation"]["prog"]["pSwap"] = params.mutation.prog.pSwap;
     root["mutation"]["prog"]["pSwap"].setComment(
         Mutator::ProgramParameters::pSwapComment, Json::commentBefore);
+
+    root["nbTestingBatches"] = params.nbTestingBatches;
+    root["nbTestingBatches"].setComment(
+        Learn::LearningParameters::nbTestingBatchesComment,
+                                    Json::commentBefore);
+
+    root["confidenceInterval"] = params.confidenceInterval;
+    root["confidenceInterval"].setComment(
+        Learn::LearningParameters::confidenceIntervalComment,
+                                    Json::commentBefore);
 
     // Write to the output stream
     std::ofstream writtenFile(path);
