@@ -79,7 +79,7 @@ namespace Learn {
          * this list. Then, the roots of the next generation
          * will fight against these champions to be evaluated.
          */
-        std::vector<const TPG::TPGVertex*> champions;
+        std::vector<TPG::TPGVertex*> champions;
 
         /**
          * \brief Number of agents per evaluation (e.g. 2 in tic-tac-toe).
@@ -115,7 +115,7 @@ namespace Learn {
                                          std::shared_ptr<Job>>>&
                 resultsPerJobMap,
             std::multimap<std::shared_ptr<EvaluationResult>,
-                          const TPG::TPGVertex*>& results,
+                          TPG::TPGVertex*>& results,
             std::map<uint64_t, Archive*>& archiveMap) override;
 
       public:
@@ -156,7 +156,7 @@ namespace Learn {
          * evaluation.
          */
         std::multimap<std::shared_ptr<Learn::EvaluationResult>,
-                      const TPG::TPGVertex*>
+                      TPG::TPGVertex*>
         evaluateAllRoots(uint64_t generationNumber,
                          Learn::LearningMode mode) override;
 

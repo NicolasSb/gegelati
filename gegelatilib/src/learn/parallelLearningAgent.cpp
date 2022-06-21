@@ -48,11 +48,11 @@
 #include "learn/evaluationResult.h"
 #include "learn/parallelLearningAgent.h"
 
-std::multimap<std::shared_ptr<Learn::EvaluationResult>, const TPG::TPGVertex*>
+std::multimap<std::shared_ptr<Learn::EvaluationResult>, TPG::TPGVertex*>
 Learn::ParallelLearningAgent::evaluateAllRoots(uint64_t generationNumber,
                                                Learn::LearningMode mode)
 {
-    std::multimap<std::shared_ptr<EvaluationResult>, const TPG::TPGVertex*>
+    std::multimap<std::shared_ptr<EvaluationResult>, TPG::TPGVertex*>
         results;
 
     if (this->maxNbThreads <= 1 || !this->learningEnvironment.isCopyable()) {
@@ -211,7 +211,7 @@ void Learn::ParallelLearningAgent::mergeArchiveMap(
 
 void Learn::ParallelLearningAgent::evaluateAllRootsInParallel(
     uint64_t generationNumber, LearningMode mode,
-    std::multimap<std::shared_ptr<EvaluationResult>, const TPG::TPGVertex*>&
+    std::multimap<std::shared_ptr<EvaluationResult>, TPG::TPGVertex*>&
         results)
 {
     // Create Archive Map
@@ -268,7 +268,7 @@ void Learn::ParallelLearningAgent::evaluateAllRootsInParallelExecute(
 void Learn::ParallelLearningAgent::evaluateAllRootsInParallelCompileResults(
     std::map<uint64_t, std::pair<std::shared_ptr<EvaluationResult>,
                                  std::shared_ptr<Job>>>& resultsPerJobMap,
-    std::multimap<std::shared_ptr<EvaluationResult>, const TPG::TPGVertex*>&
+    std::multimap<std::shared_ptr<EvaluationResult>, TPG::TPGVertex*>&
         results,
     std::map<uint64_t, Archive*>& archiveMap)
 {

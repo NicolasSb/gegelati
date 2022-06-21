@@ -37,7 +37,7 @@
 #include "program/programExecutionEngine.h"
 #include "program/line.h"
 
-void Program::ProgramExecutionEngine::setProgram(const Program& prog)
+void Program::ProgramExecutionEngine::setProgram(Program& prog)
 {
     // are constants used here ?
     size_t offset = 1;
@@ -190,6 +190,16 @@ double Program::ProgramExecutionEngine::executeProgram(
         // Increment the programCounter.
         hasNext = this->next();
     };
+
+    if(this->program->getTargetValueEditionEnabler())
+    {
+        this->program->setTargetValue(
+            *(this->registers.getDataAt(typeid(double), 0)
+                  .getSharedPointer<const double>())
+            );
+        this->program->disableEditionOfTargetValue();
+    }
+
 
     // Returns the 0-indexed register.
     // cast to primitiveType<double> to enable cast to double.

@@ -118,7 +118,7 @@ namespace TPG {
          *
          * \return a const reference to the newly created TPGTeam.
          */
-        const TPGTeam& addNewTeam();
+        TPGTeam& addNewTeam();
 
         /**
          * \brief Create a new TPGAction and add it to the vertices of the
@@ -129,7 +129,7 @@ namespace TPG {
          * \param[in] actionID the identifier to associate to the TPGAction.
          * \return a const reference to the newly created TPGAction.
          */
-        const TPGAction& addNewAction(uint64_t actionID);
+        TPGAction& addNewAction(uint64_t actionID);
 
         /**
          * \brief Get the number of TPGVertex contained in the TPGGraph.
@@ -167,7 +167,7 @@ namespace TPG {
          * \return a vector containing pointers to the root vertices of the
          * graph.
          */
-        const std::vector<const TPGVertex*> getRootVertices() const;
+        const std::vector<TPGVertex*> getRootVertices() const;
 
         /**
          * \brief Check whether a given vertex exists in the TPGGraph.
@@ -216,7 +216,7 @@ namespace TPG {
          *                           exist in the TPGGraph, or if the
          *							destination is a TPGAction.
          */
-        const TPGEdge& addNewEdge(const TPGVertex& src, const TPGVertex& dest,
+        const TPGEdge& addNewEdge(const TPGVertex& src, TPGVertex& dest,
                                   const std::shared_ptr<Program::Program> prog);
 
         /**

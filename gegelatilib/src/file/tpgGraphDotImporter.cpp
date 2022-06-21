@@ -195,7 +195,7 @@ void File::TPGGraphDotImporter::dumpTPGGraphHeader()
 void File::TPGGraphDotImporter::readTeam(std::smatch& matches)
 {
     if (!this->lastLine.empty() && !matches.empty()) {
-        this->vertexID.insert(std::pair<uint64_t, const TPG::TPGVertex*>(
+        this->vertexID.insert(std::pair<uint64_t, TPG::TPGVertex*>(
             std::stoi(matches[1]), &this->tpg.addNewTeam()));
     }
 }
@@ -212,7 +212,7 @@ void File::TPGGraphDotImporter::readAction(std::smatch& matches)
         auto elmt = actionID.find(action_label);
         if (elmt == actionID.end()) {
             // create a new action and insert it if none was previously found
-            this->actionID.insert(std::pair<uint64_t, const TPG::TPGVertex*>(
+            this->actionID.insert(std::pair<uint64_t, TPG::TPGVertex*>(
                 action_label, &this->tpg.addNewAction(action_label)));
         }
         this->actionLabel.insert(
@@ -238,7 +238,7 @@ void File::TPGGraphDotImporter::readLinkTeamProgramAction(std::smatch& matches)
             if (team_it != vertexID.end() &&
                 action_it != this->actionID.end() && p_it != programID.end()) {
                 const TPG::TPGVertex* team = team_it->second;
-                const TPG::TPGVertex* action = action_it->second;
+                TPG::TPGVertex* action = action_it->second;
                 std::shared_ptr<Program::Program> p = p_it->second;
                 this->tpg.addNewEdge(*team, *action, p);
             }
@@ -265,7 +265,7 @@ void File::TPGGraphDotImporter::readLinkTeamProgramTeam(std::smatch& matches)
             if (t1_it != this->vertexID.end() &&
                 t2_it != this->vertexID.end()) {
                 const TPG::TPGVertex* team_i = t1_it->second;
-                const TPG::TPGVertex* team_o = t2_it->second;
+                TPG::TPGVertex* team_o = t2_it->second;
                 this->tpg.addNewEdge(*team_i, *team_o, p);
             }
         }

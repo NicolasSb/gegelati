@@ -61,7 +61,7 @@ void TPG::TPGEdge::setSource(TPGVertex* newSource)
     this->source = newSource;
 }
 
-const TPG::TPGVertex* TPG::TPGEdge::getDestination() const
+TPG::TPGVertex* TPG::TPGEdge::getDestination() const
 {
     return this->destination;
 }

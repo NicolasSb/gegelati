@@ -58,17 +58,20 @@ double TPG::TPGExecutionEngine::evaluateEdge(const TPGEdge& edge)
     // Execute the program.
     double result = this->progExecutionEngine.executeProgram();
 
+    //compare with the targets program.
+    double target = prog.getTargetValue();
+    double mse_inv = 1/((target-result)*(target-result));
     // Put the result in the archive before returning it.
     if (this->archive != NULL) {
         this->archive->addRecording(&prog, progExecutionEngine.getDataSources(),
                                     result);
     }
 
-    return result;
+    return mse_inv;
 }
 
 const TPG::TPGEdge& TPG::TPGExecutionEngine::evaluateTeam(
-    const TPGTeam& team, const std::vector<const TPGVertex*>& excluded)
+    const TPGTeam& team, const std::vector<TPGVertex*>& excluded)
 {
     // Copy outgoing edge list
     std::list<TPG::TPGEdge*> outgoingEdges = team.getOutgoingEdges();
@@ -109,17 +112,28 @@ const TPG::TPGEdge& TPG::TPGExecutionEngine::evaluateTeam(
         }
     }
 
+    //does the best program deserves a reward ?
+    //Ideal case would be to have an empirical threshold defined for each program
+    //If the MSE is rather small... hold it, ugly code coming
+    if(bestBid > 10000) //distance < 1
+    {
+        //give reward
+        this->innerReward++;
+    }
+
     return *bestEdge;
 }
 
-const std::vector<const TPG::TPGVertex*> TPG::TPGExecutionEngine::
-    executeFromRoot(const TPGVertex& root)
+const std::vector<TPG::TPGVertex*> TPG::TPGExecutionEngine::
+    executeFromRoot(TPGVertex& root)
 {
-    const TPGVertex* currentVertex = &root;
+    TPGVertex* currentVertex = &root;
 
-    std::vector<const TPGVertex*> visitedVertices;
+    std::vector<TPGVertex*> visitedVertices;
     visitedVertices.push_back(currentVertex);
 
+    this->innerReward = 0;
+    int program_counter = 0;
     // Browse the TPG until a TPGAction is reached.
     while (typeid(*currentVertex) == typeid(TPG::TPGTeam)) {
         // Get the next edge
@@ -128,7 +142,10 @@ const std::vector<const TPG::TPGVertex*> TPG::TPGExecutionEngine::
         // update currentVertex and backup in visitedVertex.
         currentVertex = edge.getDestination();
         visitedVertices.push_back(currentVertex);
+        program_counter++;
     }
+
+    root.grantInnerReward(innerReward/(double)program_counter);
 
     return visitedVertices;
 }

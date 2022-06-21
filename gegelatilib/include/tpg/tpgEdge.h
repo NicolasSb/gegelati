@@ -61,7 +61,7 @@ namespace TPG {
          * \param[in] prog the shared pointer to the Program associated to the
          *            edge.
          */
-        TPGEdge(const TPGVertex* src, const TPGVertex* dest,
+        TPGEdge(const TPGVertex* src, TPGVertex* dest,
                 const std::shared_ptr<Program::Program> prog)
             : source{src}, destination{dest}, program{prog} {};
 
@@ -108,7 +108,7 @@ namespace TPG {
          *
          * \return a const pointer to the destination TPGVertex.
          */
-        const TPGVertex* getDestination() const;
+        TPGVertex* getDestination() const;
 
         /**
          * \brief Set a new destination TPGVertex to the TPGEdge.
@@ -123,7 +123,7 @@ namespace TPG {
         const TPGVertex* source;
 
         /// Pointer to the destination TPGVertex of this TPGEdge
-        const TPGVertex* destination;
+        TPGVertex* destination;
 
         /// Shared pointer to the Program to execute when evaluating the bid
         /// of this TPGEdge.

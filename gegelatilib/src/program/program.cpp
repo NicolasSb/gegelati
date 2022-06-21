@@ -276,3 +276,24 @@ bool Program::Program::hasIdenticalBehavior(const Program& other) const
     // Everything was identical, return true
     return true;
 }
+
+double Program::Program::getTargetValue() const
+{
+    return this->targetValue;
+}
+
+
+void Program::Program::setTargetValue(double v)
+{
+    this->targetValue = v;
+}
+bool Program::Program::getTargetValueEditionEnabler() const
+{
+    return this->editTarget;
+}
+
+
+void Program::Program::disableEditionOfTargetValue()
+{
+    this->editTarget = false;
+}

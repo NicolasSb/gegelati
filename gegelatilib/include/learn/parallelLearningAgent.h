@@ -80,7 +80,7 @@ namespace Learn {
         virtual void evaluateAllRootsInParallel(
             uint64_t generationNumber, LearningMode mode,
             std::multimap<std::shared_ptr<EvaluationResult>,
-                          const TPG::TPGVertex*>& results);
+                          TPG::TPGVertex*>& results);
 
         /**
          * \brief Subfunction of evaluateAllRootsInParallel which handles the
@@ -123,7 +123,7 @@ namespace Learn {
                                          std::shared_ptr<Job>>>&
                 resultsPerJobMap,
             std::multimap<std::shared_ptr<EvaluationResult>,
-                          const TPG::TPGVertex*>& results,
+                          TPG::TPGVertex*>& results,
             std::map<uint64_t, Archive*>& archiveMap);
 
         /**
@@ -207,7 +207,7 @@ namespace Learn {
          * generation. \param[in] mode the LearningMode to use during the policy
          * evaluation.
          */
-        std::multimap<std::shared_ptr<EvaluationResult>, const TPG::TPGVertex*>
+        std::multimap<std::shared_ptr<EvaluationResult>, TPG::TPGVertex*>
         evaluateAllRoots(uint64_t generationNumber, LearningMode mode) override;
     };
 } // namespace Learn

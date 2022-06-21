@@ -94,7 +94,7 @@ namespace Log {
         /// Inherited from LALogger
         void logAfterValidate(
             std::multimap<std::shared_ptr<Learn::EvaluationResult>,
-                          const TPG::TPGVertex*>& results) override{
+                          TPG::TPGVertex*>& results) override{
             // nothing to log
         };
 
@@ -106,7 +106,7 @@ namespace Log {
         /// Inherited from LALogger
         void logAfterEvaluate(
             std::multimap<std::shared_ptr<Learn::EvaluationResult>,
-                          const TPG::TPGVertex*>& results) override{
+                          TPG::TPGVertex*>& results) override{
             // nothing to log
         };
     };

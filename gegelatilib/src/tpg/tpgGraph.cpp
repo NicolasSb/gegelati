@@ -68,16 +68,16 @@ const Environment& TPG::TPGGraph::getEnvironment() const
     return this->env;
 }
 
-const TPG::TPGTeam& TPG::TPGGraph::addNewTeam()
+TPG::TPGTeam& TPG::TPGGraph::addNewTeam()
 {
     this->vertices.push_back(new TPG::TPGTeam());
-    return (const TPGTeam&)(*this->vertices.back());
+    return (TPGTeam&)(*this->vertices.back());
 }
 
-const TPG::TPGAction& TPG::TPGGraph::addNewAction(uint64_t actionID)
+TPG::TPGAction& TPG::TPGGraph::addNewAction(uint64_t actionID)
 {
     this->vertices.push_back(new TPG::TPGAction(actionID));
-    return (const TPGAction&)(*this->vertices.back());
+    return (TPGAction&)(*this->vertices.back());
 }
 
 size_t TPG::TPGGraph::getNbVertices() const
@@ -100,9 +100,9 @@ uint64_t TPG::TPGGraph::getNbRootVertices() const
                          });
 }
 
-const std::vector<const TPG::TPGVertex*> TPG::TPGGraph::getRootVertices() const
+const std::vector<TPG::TPGVertex*> TPG::TPGGraph::getRootVertices() const
 {
-    std::vector<const TPG::TPGVertex*> result;
+    std::vector<TPG::TPGVertex*> result;
     std::copy_if(this->vertices.begin(), this->vertices.end(),
                  std::back_inserter(result), [](TPGVertex* vertex) {
                      return vertex->getIncomingEdges().size() == 0;
@@ -171,7 +171,7 @@ const TPG::TPGVertex& TPG::TPGGraph::cloneVertex(const TPGVertex& vertex)
 }
 
 const TPG::TPGEdge& TPG::TPGGraph::addNewEdge(
-    const TPGVertex& src, const TPGVertex& dest,
+    const TPGVertex& src, TPGVertex& dest,
     const std::shared_ptr<Program::Program> prog)
 {
     // Check the TPGVertex existence within the graph.

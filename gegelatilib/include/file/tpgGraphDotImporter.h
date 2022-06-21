@@ -91,7 +91,7 @@ namespace File {
          * keep track of the pointers while restoring the TPGGraph described in
          * a dot file
          */
-        std::map<uint64_t, const TPG::TPGVertex*> vertexID;
+        std::map<uint64_t, TPG::TPGVertex*> vertexID;
 
         /**
          * \brief Map associating pointers to Program to an integer ID.
@@ -109,7 +109,7 @@ namespace File {
          * This map is used to ensure that identical actions are not created
          * more than once.
          */
-        std::map<uint64_t, const TPG::TPGVertex*> actionID;
+        std::map<uint64_t, TPG::TPGVertex*> actionID;
 
         /**
          * \brief Map associating actions to the corresponding action ID

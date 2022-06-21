@@ -66,7 +66,7 @@ namespace Log {
          * (min, avg max).
          */
         void logResults(std::multimap<std::shared_ptr<Learn::EvaluationResult>,
-                                      const TPG::TPGVertex*>& results);
+                                      TPG::TPGVertex*>& results);
 
       public:
         /**
@@ -123,7 +123,7 @@ namespace Log {
          */
         virtual void logAfterEvaluate(
             std::multimap<std::shared_ptr<Learn::EvaluationResult>,
-                          const TPG::TPGVertex*>& results) override;
+                          TPG::TPGVertex*>& results) override;
 
         /**
          * Inherited via LaLogger.
@@ -146,7 +146,7 @@ namespace Log {
          */
         virtual void logAfterValidate(
             std::multimap<std::shared_ptr<Learn::EvaluationResult>,
-                          const TPG::TPGVertex*>& results) override;
+                          TPG::TPGVertex*>& results) override;
 
         /**
          * Inherited via LaLogger

@@ -109,6 +109,18 @@ namespace TPG {
          */
         virtual void removeOutgoingEdge(TPG::TPGEdge* edge);
 
+        /**
+         * \brief set the reward of the team after its execution.
+         *
+         * \param[in] v the value of the granted reward
+         */
+        void grantInnerReward(double v);
+
+        /**
+         * \brief get the inner reward of the team programs.
+         */
+        double getInnerReward();
+
       protected:
         /**
          * \brief Protected default constructor to forbid the instanciation of
@@ -125,6 +137,11 @@ namespace TPG {
          * \brief Set of outgoing TPGEdge of the TPGVertex.
          */
         std::list<TPG::TPGEdge*> outgoingEdges;
+
+        /**
+         * \brief inner reward of the team execution
+         */
+        double innerReward = 0;
     };
 }; // namespace TPG
 

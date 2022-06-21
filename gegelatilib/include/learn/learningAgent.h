@@ -79,7 +79,7 @@ namespace Learn {
 
         /// Pointer to the best root encountered during training, together with
         /// its EvaluationResult.
-        std::pair<const TPG::TPGVertex*, std::shared_ptr<EvaluationResult>>
+        std::pair<TPG::TPGVertex*, std::shared_ptr<EvaluationResult>>
             bestRoot{nullptr, nullptr};
 
         /**
@@ -231,7 +231,7 @@ namespace Learn {
          * evaluation.
          */
         virtual std::multimap<std::shared_ptr<EvaluationResult>,
-                              const TPG::TPGVertex*>
+                              TPG::TPGVertex*>
         evaluateAllRoots(uint64_t generationNumber, LearningMode mode);
 
         /**
@@ -262,7 +262,7 @@ namespace Learn {
          */
         virtual void decimateWorstRoots(
             std::multimap<std::shared_ptr<EvaluationResult>,
-                          const TPG::TPGVertex*>& results);
+                          TPG::TPGVertex*>& results);
 
         /**
          * \brief Train the TPGGraph for a given number of generation.
@@ -302,7 +302,7 @@ namespace Learn {
          */
         void updateEvaluationRecords(
             const std::multimap<std::shared_ptr<EvaluationResult>,
-                                const TPG::TPGVertex*>& results);
+                                TPG::TPGVertex*>& results);
 
         /**
          * \brief This method resets the previous registered scores per root.
@@ -322,7 +322,7 @@ namespace Learn {
          *
          * \return a reference to the bestRoot attribute.
          */
-        const std::pair<const TPG::TPGVertex*,
+        const std::pair<TPG::TPGVertex*,
                         std::shared_ptr<EvaluationResult>>&
         getBestRoot() const;
 

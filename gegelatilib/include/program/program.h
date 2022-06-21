@@ -76,6 +76,21 @@ namespace Program {
          **/
         Data::ConstantHandler constants;
 
+        /**
+         *   \brief Target Value
+         *
+         *   A Program has a target to reach
+         *
+         **/
+        double targetValue = 0.0;
+
+        /**
+         *   \brief Edit target enabler
+         *
+         *   a program's target can be changed only once
+         **/
+        bool editTarget = true;
+
         /// Delete the default constructor.
         Program() = delete;
 
@@ -267,6 +282,32 @@ namespace Program {
          * \param[in] other the Program whose behavior is compared.
          */
         bool hasIdenticalBehavior(const Program& other) const;
+
+        /**
+         *	\brief Get the value of the program's target
+         *
+         *	\return the value of the target of the program
+         */
+        double getTargetValue() const;
+
+        /**
+         *	\brief Set the value of a program's target
+         *
+         *	\param[in] v The value of the program's target
+         */
+        void setTargetValue(double v);
+
+        /**
+         *	\brief Get the edit enabler of a target value
+         *
+         *	\return true if the target value can be edited
+         */
+        bool getTargetValueEditionEnabler() const;
+
+        /**
+         *	\brief disables the changes on the target value
+         */
+        void disableEditionOfTargetValue();
     };
 } // namespace Program
 #endif

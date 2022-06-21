@@ -43,7 +43,7 @@
 
 void Log::LABasicLogger::logResults(
     std::multimap<std::shared_ptr<Learn::EvaluationResult>,
-                  const TPG::TPGVertex*>& results)
+                  TPG::TPGVertex*>& results)
 {
     auto iter = results.begin();
     double min = iter->first->getResult();
@@ -53,7 +53,7 @@ void Log::LABasicLogger::logResults(
         results.begin(), results.end(), 0.0,
         [](double acc,
            std::pair<std::shared_ptr<Learn::EvaluationResult>,
-                     const TPG::TPGVertex*>
+                     TPG::TPGVertex*>
                pair) -> double { return acc + pair.first->getResult(); });
     avg /= (double)results.size();
     *this << std::setw(colWidth) << min << std::setw(colWidth) << avg
@@ -91,7 +91,7 @@ void Log::LABasicLogger::logAfterPopulateTPG()
 
 void Log::LABasicLogger::logAfterEvaluate(
     std::multimap<std::shared_ptr<Learn::EvaluationResult>,
-                  const TPG::TPGVertex*>& results)
+                  TPG::TPGVertex*>& results)
 {
     evalTime = getDurationFrom(*checkpoint);
 
@@ -106,7 +106,7 @@ void Log::LABasicLogger::logAfterEvaluate(
 
 void Log::LABasicLogger::logAfterValidate(
     std::multimap<std::shared_ptr<Learn::EvaluationResult>,
-                  const TPG::TPGVertex*>& results)
+                  TPG::TPGVertex*>& results)
 {
     validTime = getDurationFrom(*checkpoint);
 

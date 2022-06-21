@@ -53,6 +53,11 @@ namespace TPG {
      */
     class TPGExecutionEngine
     {
+      private:
+        /**
+         *  \brief inner reward of a TPG TEAM;
+         */
+        double innerReward = 0.0;
       protected:
         /**
          *  \brief Archive for recording Program results.
@@ -125,7 +130,7 @@ namespace TPG {
          *        exit.
          */
         const TPG::TPGEdge& evaluateTeam(
-            const TPGTeam& team, const std::vector<const TPGVertex*>& excluded);
+            const TPGTeam& team, const std::vector<TPGVertex*>& excluded);
 
         /**
          * \brief Execute the TPGGraph starting from the given TPGVertex.
@@ -138,8 +143,8 @@ namespace TPG {
          *         evaluation of the TPGGraph. The TPGAction resulting from the
          *         TPGGraph execution is at the end of the returned vector.
          */
-        const std::vector<const TPGVertex*> executeFromRoot(
-            const TPGVertex& root);
+        const std::vector<TPGVertex*> executeFromRoot(
+            TPGVertex& root);
     };
 }; // namespace TPG
 

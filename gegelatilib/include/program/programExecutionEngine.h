@@ -52,7 +52,7 @@ namespace Program {
       protected:
         /// The program currently executed by the ProgramExecutionEngine
         /// instance.
-        const Program* program;
+        Program* program;
 
         /// Default constructor is deleted.
         ProgramExecutionEngine() = delete;
@@ -113,14 +113,14 @@ namespace Program {
          * This constructor is useful for testing a Program on a different
          * Environment than its own.
          *
-         * \param[in] prog the const Program that will be executed by the
+         * \param[in] prog the Program that will be executed by the
          * ProgramExecutionEngine.
          * \param[in] dataSrc The DataHandler with which
          * the Program will be executed.
          */
         template <class T>
         ProgramExecutionEngine(
-            const Program& prog,
+            Program& prog,
             const std::vector<std::reference_wrapper<T>>& dataSrc)
             : programCounter{0},
               registers{prog.getEnvironment().getNbRegisters()}, program{NULL}
@@ -153,10 +153,10 @@ namespace Program {
          * The constructor initialize the number of registers accordingly
          * with the Environment of the given Program.
          *
-         * \param[in] prog the const Program that will be executed by the
+         * \param[in] prog the Program that will be executed by the
          * ProgramExecutionEngine.
          */
-        ProgramExecutionEngine(const Program& prog)
+        ProgramExecutionEngine(Program& prog)
             : ProgramExecutionEngine(prog,
                                      prog.getEnvironment().getDataSources()){};
 
@@ -164,12 +164,12 @@ namespace Program {
          * \brief Method for changing the Program executed by a
          * ProgramExecutionEngin.
          *
-         * \param[in] prog the const Program that will be executed by the
+         * \param[in] prog the Program that will be executed by the
          * ProgramExecutionEngine. \throws std::runtime_error if the Environment
          * references by the Program is incompatible with the dataSources of the
          * ProgramExecutionEngine.
          */
-        void setProgram(const Program& prog);
+        void setProgram(Program& prog);
 
         /**
          * \brief Method for changing the dataSources on which the Program will

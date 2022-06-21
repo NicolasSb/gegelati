@@ -81,3 +81,13 @@ void TPG::TPGVertex::removeOutgoingEdge(TPG::TPGEdge* edge)
 {
     this->outgoingEdges.remove(edge);
 }
+
+void TPG::TPGVertex::grantInnerReward(double v)
+{
+    this->innerReward = v;
+}
+
+double TPG::TPGVertex::getInnerReward()
+{
+    return this->innerReward;
+}

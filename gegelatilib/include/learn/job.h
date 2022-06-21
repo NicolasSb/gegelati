@@ -55,7 +55,7 @@ namespace Learn {
         /**
          * The root contained in the job.
          */
-        const TPG::TPGVertex* root;
+        TPG::TPGVertex* root;
 
         /**
          * Index associated to this job.
@@ -80,7 +80,7 @@ namespace Learn {
          * job.
          * @param[in] idx The index of this job.
          */
-        Job(const TPG::TPGVertex* root, uint64_t archiveSeed = 0,
+        Job(TPG::TPGVertex* root, uint64_t archiveSeed = 0,
             uint64_t idx = 0)
             : root(root), archiveSeed(archiveSeed), idx(idx)
         {
@@ -108,7 +108,7 @@ namespace Learn {
          *
          * @return The root embedded by the job.
          */
-        virtual const TPG::TPGVertex* getRoot() const;
+        virtual TPG::TPGVertex* getRoot() const;
     };
 } // namespace Learn
 

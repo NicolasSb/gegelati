@@ -57,7 +57,7 @@ namespace Learn {
          * The roots contained in the job. e.g. 2 roots that
          * will compete together in a 1vs1 game.
          */
-        std::vector<const TPG::TPGVertex*> roots;
+        std::vector<TPG::TPGVertex*> roots;
 
         /**
          * Position of the root that is to be evaluated.
@@ -88,7 +88,7 @@ namespace Learn {
          * @param[in] posOfStudiedRoot The position of the root we will have
          * to check the score. Equal to -1 if all roots have to be checked.
          */
-        AdversarialJob(std::initializer_list<const TPG::TPGVertex*> roots,
+        AdversarialJob(std::initializer_list<TPG::TPGVertex*> roots,
                        uint64_t archiveSeed = 0, uint64_t idx = 0,
                        int16_t posOfStudiedRoot = -1)
             : roots(roots), Job(nullptr, archiveSeed, idx),
@@ -101,7 +101,7 @@ namespace Learn {
          *
          * @param[in] root The root that will be added to this job.
          */
-        void addRoot(const TPG::TPGVertex* root);
+        void addRoot(TPG::TPGVertex* root);
 
         /**
          * \brief Getter of the number of roots.
@@ -115,14 +115,14 @@ namespace Learn {
          *
          * @return The vector containing the roots of the job.
          */
-        std::vector<const TPG::TPGVertex*> getRoots() const;
+        std::vector<TPG::TPGVertex*> getRoots() const;
 
         /**
          * \brief Getter of the first root.
          *
          * @return The first root embedded by the job.
          */
-        const TPG::TPGVertex* getRoot() const override;
+        TPG::TPGVertex* getRoot() const override;
 
         /**
          * \brief Getter of a single root in the list.
@@ -131,7 +131,7 @@ namespace Learn {
          * @return The root found at index i.
          */
 
-        const TPG::TPGVertex* operator[](int i) const;
+        TPG::TPGVertex* operator[](int i) const;
 
         /**
          * \brief Getter of the posOfStudiedRoot.

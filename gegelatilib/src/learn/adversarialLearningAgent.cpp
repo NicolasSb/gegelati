@@ -38,7 +38,7 @@
 
 #include "learn/adversarialLearningAgent.h"
 
-std::multimap<std::shared_ptr<Learn::EvaluationResult>, const TPG::TPGVertex*>
+std::multimap<std::shared_ptr<Learn::EvaluationResult>, TPG::TPGVertex*>
 Learn::AdversarialLearningAgent::evaluateAllRoots(uint64_t generationNumber,
                                                   Learn::LearningMode mode)
 {
@@ -47,7 +47,7 @@ Learn::AdversarialLearningAgent::evaluateAllRoots(uint64_t generationNumber,
         throw std::runtime_error(
             "Max number of threads for a non copyable environment is 1.");
     }
-    std::multimap<std::shared_ptr<EvaluationResult>, const TPG::TPGVertex*>
+    std::multimap<std::shared_ptr<EvaluationResult>, TPG::TPGVertex*>
         results;
     evaluateAllRootsInParallel(generationNumber, mode, results);
     return results;
@@ -56,12 +56,12 @@ Learn::AdversarialLearningAgent::evaluateAllRoots(uint64_t generationNumber,
 void Learn::AdversarialLearningAgent::evaluateAllRootsInParallelCompileResults(
     std::map<uint64_t, std::pair<std::shared_ptr<EvaluationResult>,
                                  std::shared_ptr<Job>>>& resultsPerJobMap,
-    std::multimap<std::shared_ptr<EvaluationResult>, const TPG::TPGVertex*>&
+    std::multimap<std::shared_ptr<EvaluationResult>, TPG::TPGVertex*>&
         results,
     std::map<uint64_t, Archive*>& archiveMap)
 {
     // Create temporary map to gather results per root
-    std::map<const TPG::TPGVertex*, std::shared_ptr<EvaluationResult>>
+    std::map<TPG::TPGVertex*, std::shared_ptr<EvaluationResult>>
         resultsPerRootMap;
 
     // Gather the results
@@ -152,7 +152,7 @@ std::shared_ptr<Learn::EvaluationResult> Learn::AdversarialLearningAgent::
             // Get the action
             uint64_t actionID =
                 ((const TPG::TPGAction*)tee
-                     .executeFromRoot(*((const TPG::TPGTeam*)*rootsIterator))
+                     .executeFromRoot(*((TPG::TPGTeam*)*rootsIterator))
                      .back())
                     ->getActionID();
             // Do it
@@ -204,14 +204,14 @@ std::queue<std::shared_ptr<Learn::Job>> Learn::AdversarialLearningAgent::
         (double)params.nbIterationsPerPolicyEvaluation /
         (double)(agentsPerEvaluation * params.nbIterationsPerJob));
     auto championsTeams =
-        std::vector<std::vector<const TPG::TPGVertex*>>(nbChampionsTeams);
+        std::vector<std::vector<TPG::TPGVertex*>>(nbChampionsTeams);
 
     // rng used to make champions teams
     Mutator::RNG rngChampions;
     for (auto& team : championsTeams) {
         // If the environment needs n agents, we will make lists of n-1
         // agents that will incorporate other roots.
-        team = std::vector<const TPG::TPGVertex*>(agentsPerEvaluation - 1);
+        team = std::vector<TPG::TPGVertex*>(agentsPerEvaluation - 1);
         for (int i = 0; i < agentsPerEvaluation - 1; i++) {
             auto it = champions.begin();
             std::advance(

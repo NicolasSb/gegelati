@@ -70,7 +70,7 @@ void Mutator::TPGMutator::initRandomTPG(
     graph.clear();
 
     // Create teams, programs and Actions
-    std::vector<const TPG::TPGAction*> actions;
+    std::vector<TPG::TPGAction*> actions;
     std::vector<const TPG::TPGTeam*> teams;
     std::vector<std::shared_ptr<Program::Program>> programs;
     for (size_t i = 0; i < params.tpg.nbActions; i++) {
